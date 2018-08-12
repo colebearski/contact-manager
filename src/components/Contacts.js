@@ -9,6 +9,7 @@ class Contacts extends Component {
   // super (); when you have a parent class and are extending another class
   // this.state = contacts array of objects
   // }
+  // STATE SHOULD ALWAYS BE AT THE TOP
 
   state = {
     contacts: [
@@ -35,13 +36,26 @@ class Contacts extends Component {
   // state for our componenets
   // destructure {} pull out from satte
 
+  deleteContact = id => {
+    const { contacts } = this.state;
+    const newContacts = contacts.filter(contact => contact.id !== id);
+
+    this.setState({
+      contacts: newContacts
+    });
+  };
+
   render() {
     const { contacts } = this.state;
 
     return (
       <React.Fragment>
         {contacts.map(contact => (
-          <Contact key={contact.id} contact={contact} />
+          <Contact
+            key={contact.id}
+            contact={contact}
+            deleteClickHandler={this.deleteContact.bind(this, contact.id)}
+          />
           //   Contact name={contact.name}
         ))}
 
@@ -52,3 +66,8 @@ class Contacts extends Component {
 }
 
 export default Contacts;
+
+/* PROPAGATING UP TO THE PARENT COMPONENT
+WE CLICK, AND IT CALLS ONDELETECLICK WHICH CALLS DELETECLICKHANDLER IN THE PROPS
+AND PROP IS SET TO DELETE CONTACT AND NOW WE HAVE ACCESS TO THE STATE
+*/
