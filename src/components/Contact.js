@@ -9,6 +9,10 @@ class Contact extends Component {
     showContactInfo: false
   };
 
+  onDeleteClick = () => {
+    console.log("Clicked");
+  };
+
   // onShowClick = e => {
   //   // state is immutable, you can't directly manipulate it
   //   // cannot do this.state = showContactInfo: false
@@ -37,6 +41,12 @@ class Contact extends Component {
               this.setState({ showContactInfo: !this.state.showContactInfo })
             }
             className="fas fa-sort-down"
+            style={{ cursor: "pointer" }}
+          />
+          <i
+            className="fas fa-times"
+            style={{ cursor: "pointer", float: "right", color: "red" }}
+            onClick={this.onDeleteClick}
           />
           {/* this ^^ referring to a method in this class */}
         </h4>
@@ -57,3 +67,10 @@ Contact.propTypes = {
 };
 
 export default Contact;
+
+// changing the state
+// the contact componenet is not where the state is at, the state is in the one above it contacts
+// and we're passing them down as properties
+// create a delete button and have a function handler run
+
+// IN ORDER TO GET TO THE CONTACTS COMPONENT WE NEED TO USE PROPS
