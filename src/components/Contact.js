@@ -10,6 +10,7 @@ class Contact extends Component {
   onShowClick = e => {};
 
   // binds the state to the function. This isn't a lifecycle function, it's custom
+  // events in react
 
   render() {
     const { name, email, phone } = this.props.contact;
