@@ -17,14 +17,16 @@ class Contacts extends Component {
   // state for our componenets
   // destructure {} pull out from satte
 
-  deleteContact = id => {
-    const { contacts } = this.state;
-    const newContacts = contacts.filter(contact => contact.id !== id);
+  // deleteContact = id => {
+  //   const { contacts } = this.state;
+  //   const newContacts = contacts.filter(contact => contact.id !== id);
 
-    this.setState({
-      contacts: newContacts
-    });
-  };
+  //   this.setState({
+  //     contacts: newContacts
+  //   });
+  // };
+
+  // Moving into an action within the context api file context.js
 
   render() {
     return (
@@ -34,15 +36,8 @@ class Contacts extends Component {
           return (
             <React.Fragment>
               {contacts.map(contact => (
-                <Contact
-                  key={contact.id}
-                  contact={contact}
-                  deleteClickHandler={this.deleteContact.bind(this, contact.id)}
-                />
-                //   Contact name={contact.name}
+                <Contact key={contact.id} contact={contact} />
               ))}
-
-              {/*contacts.map(contact => (<h1>{contact.name}</h1>))    */}
             </React.Fragment>
           );
         }}

@@ -5,6 +5,21 @@ import React, { Component } from "react";
 
 const Context = React.createContext();
 
+// adding a reducer function
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "DELETE_CONTACT":
+      return {
+        ...state,
+        contacts: state.contacts.filter(
+          contact => contact.id !== action.payload
+        )
+      };
+    default:
+      return state;
+  }
+};
+
 export class Provider extends Component {
   // globalish state
   state = {
@@ -27,7 +42,10 @@ export class Provider extends Component {
         email: "henryJ@gmail.com",
         phone: "444-444-4444"
       }
-    ]
+    ],
+    dispatch: action => {
+      this.setState(state => reducer(state, action));
+    }
   };
 
   render() {
