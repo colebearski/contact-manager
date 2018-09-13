@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import Contact from "./Contact";
+import { Consumer } from "../context";
 
 class Contacts extends Component {
   // constructor runs when the component gets mounted, that's also how we will initialize state
@@ -11,28 +12,8 @@ class Contacts extends Component {
   // }
   // STATE SHOULD ALWAYS BE AT THE TOP
 
-  state = {
-    contacts: [
-      {
-        id: 1,
-        name: "John Doe",
-        email: "jdoe@gmail.com",
-        phone: "555-555-5555"
-      },
-      {
-        id: 2,
-        name: "Karen Williams",
-        email: "kwill@gmail.com",
-        phone: "777-777-7777"
-      },
-      {
-        id: 3,
-        name: "Henry Johnson",
-        email: "henryJ@gmail.com",
-        phone: "444-444-4444"
-      }
-    ]
-  };
+  // MOVED STATE TO CONTEXT.JS
+
   // state for our componenets
   // destructure {} pull out from satte
 
@@ -46,21 +27,27 @@ class Contacts extends Component {
   };
 
   render() {
-    const { contacts } = this.state;
-
     return (
-      <React.Fragment>
-        {contacts.map(contact => (
-          <Contact
-            key={contact.id}
-            contact={contact}
-            deleteClickHandler={this.deleteContact.bind(this, contact.id)}
-          />
-          //   Contact name={contact.name}
-        ))}
+      <Consumer>
+        {value => {
+          const { contacts } = value;
+          return (
+            <React.Fragment>
+              {contacts.map(contact => (
+                <Contact
+                  key={contact.id}
+                  contact={contact}
+                  deleteClickHandler={this.deleteContact.bind(this, contact.id)}
+                />
+                //   Contact name={contact.name}
+              ))}
 
-        {/*contacts.map(contact => (<h1>{contact.name}</h1>))    */}
-      </React.Fragment>
+              {/*contacts.map(contact => (<h1>{contact.name}</h1>))    */}
+            </React.Fragment>
+          );
+        }}
+        {/* comes from the context value */}
+      </Consumer>
     );
   }
 }
